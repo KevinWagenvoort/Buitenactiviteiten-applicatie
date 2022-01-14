@@ -1,5 +1,5 @@
 <template>
-  <Tutorial/>
+  <user-geo-position />
 </template>
 
 <script lang="ts">
