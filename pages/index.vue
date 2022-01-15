@@ -1,5 +1,7 @@
 <template>
-  <user-geo-position />
+  <div>
+    <p>homepage</p>
+  </div>
 </template>
 
 <script lang="ts">
