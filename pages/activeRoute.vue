@@ -5,7 +5,6 @@
                 <h1>{{ title }}</h1>
             </b-col>
             <b-col>
-                {{debugDistance}}
                 <b-button @click="debugDistance += 50">Nep dicherbij lopen</b-button>
                 <b-button @click="debugDistance -= 50">Nep verderweg lopen</b-button>
             </b-col>
@@ -21,8 +20,8 @@
                     </div>
                 </template>
             </b-col>
-            <b-col>
-                <b-img src="https://azuremapscodesamples.azurewebsites.net/SiteResources/screenshots/Snap-drawn-line-to-roads.jpg" />
+            <b-col v-if="hasLocation">
+                <img width="500" v-bind:src="'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-cross+285A98('+ userLongitude +','+ userLatitude +')/' + userLongitude + ',' + userLatitude +',17,0/500x500@2x?access_token=pk.eyJ1Ijoia2V2aWIxMzM3IiwiYSI6ImNqcDg2cGk2ZjBrcnMzdm8wd2Zjc3R6b2oifQ.quWVgUCWuWb_EJgMMQY9eA&attribution=false&logo=false'">
             </b-col>
         </b-row>
     </b-container>
@@ -44,6 +43,8 @@
             id : "ID",
             pois: pois,
             hasLocation: false,
+            userLatitude: 0,
+            userLongitude: 0,
             }
         },
         beforeMount: function () {
@@ -58,6 +59,8 @@
                 
                 navigator.geolocation.watchPosition((position) => {
                     this.hasLocation = true;
+                    this.userLatitude = position.coords.latitude;
+                    this.userLongitude = position.coords.longitude;
 
                     // Calculate distance to poi
                     pois.map(poi => {
@@ -65,6 +68,11 @@
                     })
 
                     this.pois = pois;
+                }, (err) => {
+
+                }, {
+                    enableHighAccuracy: true,
+                    maximumAge: 0
                 });
             }
         }
