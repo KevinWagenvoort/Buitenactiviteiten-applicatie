@@ -21,7 +21,11 @@
                 </template>
             </b-col>
             <b-col v-if="hasLocation">
-                <img width="500" v-bind:src="'https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/pin-s-cross+285A98('+ userLongitude +','+ userLatitude +')/' + userLongitude + ',' + userLatitude +',17,0/500x500@2x?access_token=pk.eyJ1Ijoia2V2aWIxMzM3IiwiYSI6ImNqcDg2cGk2ZjBrcnMzdm8wd2Zjc3R6b2oifQ.quWVgUCWuWb_EJgMMQY9eA&attribution=false&logo=false'">
+                <StaticMap
+                    :centerLogitude="userLongitude"
+                    :centerLatitude="userLatitude"
+                    :pois="pois"
+                />
             </b-col>
         </b-row>
     </b-container>
@@ -44,7 +48,7 @@
             pois: pois,
             hasLocation: false,
             userLatitude: 0,
-            userLongitude: 0,
+            userLongitude: 0
             }
         },
         beforeMount: function () {
@@ -69,7 +73,7 @@
 
                     this.pois = pois;
                 }, (err) => {
-
+                    console.error(err);
                 }, {
                     enableHighAccuracy: true,
                     maximumAge: 0
