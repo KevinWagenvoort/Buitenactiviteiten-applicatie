@@ -6,10 +6,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-    #nuxtContent {
-        background: #c5f1f8;
-        height: 100vh;
-    }
-</style>
