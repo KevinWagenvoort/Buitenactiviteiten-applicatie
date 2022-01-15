@@ -1,19 +1,35 @@
 <template>
-    <div v-if="hasParams">
-        <h1>{{ title }}</h1>
-        <p>Deze route wordt nu getracked {{ id }}</p>
-        <div>
-            <li v-for="(poi, index) in pois" :key="index">
-                <p>{{ poi.title }}</p>
-                <p>latitude : {{poi.latitude}}, longitude: {{poi.longitude}}</p>
-                <p v-if="hasLocation">Afstand: {{ poi.distance }} meter</p>
-            </li>
-        </div>
-    </div>
+    <b-container v-if="hasParams">
+        <b-row>
+            <b-col>
+                <h1>{{ title }}</h1>
+            </b-col>
+            <b-col>
+                {{debugDistance}}
+                <b-button @click="debugDistance += 50">Nep dicherbij lopen</b-button>
+                <b-button @click="debugDistance -= 50">Nep verderweg lopen</b-button>
+            </b-col>
+        </b-row>
+        <b-row>
+            <b-col>
+                <template v-for="(poi, index) in pois">
+                    <b-card v-if="poi.distance <= distanceTrigger" :key="index" :header="poi.title + ' - Afstand: ' + poi.distance" :img-src="poi.image">
+                        <p class="card-text mt-2">{{ poi.description }}</p>
+                    </b-card>
+                    <div v-else-if="poi.distance > distanceTrigger" :key="index" class="card outOfReach">
+                        <div class="card-header">Opdracht: Tel de berkenbomen - Afstand: {{ poi.distance }}</div>
+                    </div>
+                </template>
+            </b-col>
+            <b-col>
+                <b-img src="https://azuremapscodesamples.azurewebsites.net/SiteResources/screenshots/Snap-drawn-line-to-roads.jpg" />
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue'
+    import Vue from 'vue';
 
     export default Vue.extend({
         props: ['route'],
@@ -21,6 +37,8 @@
             let pois : any[] = [];
 
             return {
+            debugDistance: 0,    
+            distanceTrigger: 50,
             hasParams: false,
             title: "TITLE",
             id : "ID",
@@ -43,7 +61,7 @@
 
                     // Calculate distance to poi
                     pois.map(poi => {
-                        poi['distance'] = calculateDistanceInMeters(poi["latitude"], poi["longitude"], position.coords.latitude, position.coords.longitude);
+                        poi['distance'] = calculateDistanceInMeters(poi["latitude"], poi["longitude"], position.coords.latitude, position.coords.longitude) - this.debugDistance;
                     })
 
                     this.pois = pois;
@@ -70,3 +88,9 @@
         return deg * (Math.PI/180)
     }
 </script>
+
+<style scoped>
+    .card.outOfReach {
+        filter: grayscale(100);
+    }
+</style>
