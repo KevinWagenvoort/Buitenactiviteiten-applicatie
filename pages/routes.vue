@@ -40,7 +40,7 @@
             },
             {
                 "id": "A134",
-                "title": "Apeldoorn advontuur",
+                "title": "Apeldoorn avontuur",
                 "pois": [
                     {
                         "title": "Bezienswaardigheid: De wilde Bes",

@@ -47,7 +47,7 @@
 
             return {
             debugDistance: 0,    
-            distanceTrigger: 1000,
+            distanceTrigger: 25,
             hasParams: false,
             title: "TITLE",
             id : "ID",
