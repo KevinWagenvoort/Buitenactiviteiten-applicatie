@@ -11,6 +11,7 @@
     <p>PS: Opmaak ben ik totaal niet goed in, dus ik maak gebruiker voor bootstrap-vue ook heb ik niet een alternatieve opmaak gemaakt voor de telefoon, maar alles werkt nog wel gewoon</p>
     <h1>Rest opmerkingen</h1>
     <p>Het was even wennen om vue/nuxt onder de knie te krijgen, maar heb +- 10 uur ingestoken en merk nu al dat ik vloeiender taken uitwerkte</p>
+    <p>Misschien moet er voor gebruik een eigen certficaat worden toegevoegd <a href="https://stackoverflow.com/a/57895543" target="_blank">Uitleg hier</a></p>
   </div>
 </template>
 
