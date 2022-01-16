@@ -16,14 +16,27 @@
                 poisString: ""
             }
         },
-        created: function() {
-            // Default poi string with current location pin
-            this.poisString = `pin-s-pitch+285A98(${this.centerLongitude},${this.centerLatitude})`;
+        methods: {
+            updateMarkers: function() {
+                // Default poi string with current location pin
+                this.poisString = `pin-s-pitch+285A98(${this.centerLongitude},${this.centerLatitude})`;
 
-            // Add all pois to string
-            this.pois.map((poi: any) => {
-                this.poisString += `,pin-s-heart+285A98(${poi['longitude']},${poi['latitude']})`
-            })
+                // Add all pois to string
+                this.pois.map((poi: any) => {
+                    this.poisString += `,pin-s-heart+285A98(${poi['longitude']},${poi['latitude']})`
+                })
+            }
+        },
+        created: function() {
+            this.updateMarkers();
+        },
+        watch: {
+            centerLongitude: function() {
+                this.updateMarkers();
+            },
+            centerLatitude: function() {
+                this.updateMarkers();
+            }
         }
     });
 </script>
