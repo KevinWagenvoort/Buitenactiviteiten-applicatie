@@ -9,7 +9,8 @@
         props: {
             centerLongitude: Number,
             centerLatitude: Number,
-            pois: Array
+            pois: Array,
+            completedPois: Array
         },
         data: function () {
             return {
@@ -22,8 +23,12 @@
                 this.poisString = `pin-s-pitch+285A98(${this.centerLongitude},${this.centerLatitude})`;
 
                 // Add all pois to string
-                this.pois.map((poi: any) => {
-                    this.poisString += `,pin-s-heart+285A98(${poi['longitude']},${poi['latitude']})`
+                this.pois.map((poi: any, index: number) => {
+                    if (this.completedPois.includes(index)) {
+                        this.poisString += `,pin-s-heart+5ffa01(${poi['longitude']},${poi['latitude']})`
+                    } else {
+                        this.poisString += `,pin-s-heart+ea4335(${poi['longitude']},${poi['latitude']})`
+                    }
                 })
             }
         },
@@ -35,6 +40,9 @@
                 this.updateMarkers();
             },
             centerLatitude: function() {
+                this.updateMarkers();
+            },
+            completedPois: function() {
                 this.updateMarkers();
             }
         }

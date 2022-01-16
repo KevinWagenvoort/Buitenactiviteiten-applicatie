@@ -12,11 +12,15 @@
         <b-row>
             <b-col>
                 <template v-for="(poi, index) in pois">
-                    <b-card v-if="poi.distance <= distanceTrigger" :key="index" :header="poi.title + ' - Afstand: ' + poi.distance" :img-src="poi.image">
+                    <div v-if="completedPois.includes(index)" :key="index" class="card completed">
+                        <div class="card-header">{{poi.title}} - Afgevinkt</div>
+                    </div>
+                    <b-card v-else-if="poi.distance <= distanceTrigger" :key="index" :header="poi.title + ' - Afstand: ' + poi.distance" :img-src="poi.image">
                         <p class="card-text mt-2">{{ poi.description }}</p>
+                        <b-button @click="completePoi(index)">Afvinken</b-button>
                     </b-card>
                     <div v-else-if="poi.distance > distanceTrigger" :key="index" class="card outOfReach">
-                        <div class="card-header">Opdracht: Tel de berkenbomen - Afstand: {{ poi.distance }}</div>
+                        <div class="card-header">{{poi.title}} - Afstand: {{ poi.distance }}</div>
                     </div>
                 </template>
             </b-col>
@@ -25,6 +29,7 @@
                     :centerLongitude="userLongitude"
                     :centerLatitude="userLatitude"
                     :pois="pois"
+                    :completedPois="completedPois"
                 />
             </b-col>
         </b-row>
@@ -38,17 +43,19 @@
         props: ['route'],
         data: function () {
             let pois : any[] = [];
+            let completedPois : number[] = [];
 
             return {
             debugDistance: 0,    
-            distanceTrigger: 10,
+            distanceTrigger: 1000,
             hasParams: false,
             title: "TITLE",
             id : "ID",
             pois: pois,
             hasLocation: false,
             userLatitude: 0,
-            userLongitude: 0
+            userLongitude: 0,
+            completedPois: completedPois
             }
         },
         beforeMount: function () {
@@ -78,6 +85,11 @@
                     enableHighAccuracy: true,
                     maximumAge: 0
                 });
+            }
+        },
+        methods: {
+            completePoi: function(index: number) {
+                if (!this.completedPois.includes(index)) this.completedPois.push(index);
             }
         }
     })
