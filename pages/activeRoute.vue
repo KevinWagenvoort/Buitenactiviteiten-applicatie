@@ -22,7 +22,7 @@
             </b-col>
             <b-col v-if="hasLocation">
                 <StaticMap
-                    :centerLogitude="userLongitude"
+                    :centerLongitude="userLongitude"
                     :centerLatitude="userLatitude"
                     :pois="pois"
                 />

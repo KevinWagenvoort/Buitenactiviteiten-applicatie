@@ -3,9 +3,11 @@
 </template>
 
 <script lang="ts">
-    export default {
+    import Vue from "vue";
+
+    export default Vue.extend({
         props: {
-            centerLogitude: Number,
+            centerLongitude: Number,
             centerLatitude: Number,
             pois: Array
         },
@@ -16,12 +18,12 @@
         },
         created: function() {
             // Default poi string with current location pin
-            this.poisString = `pin-s-pitch+285A98(${this.centerLogitude},${this.centerLatitude})`;
+            this.poisString = `pin-s-pitch+285A98(${this.centerLongitude},${this.centerLatitude})`;
 
             // Add all pois to string
-            this.pois.map(poi => {
+            this.pois.map((poi: any) => {
                 this.poisString += `,pin-s-heart+285A98(${poi['longitude']},${poi['latitude']})`
             })
         }
-    }
+    });
 </script>
