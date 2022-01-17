@@ -1,10 +1,11 @@
 <template>
-    <b-container>
+    <b-container class="text-center">
         <b-row>
             <b-col>
                 <h1 class="text-center">Route aanmaken</h1>
             </b-col>
         </b-row>
+        <b-alert variant="success" :show="saved">Route opgeslagen!</b-alert>
         <div>
             <b-form-group id="routeTitleGroup" label="Titel" label-for="routeTitle">
                 <b-form-input type="text" id="routeTitle" trim></b-form-input>
@@ -38,7 +39,7 @@
             <hr class="mt-2 mb-3"/>
         </div>
         <div>
-            <b-button variant="success" @click="console.debug('Send to api')">Opslaan</b-button>
+            <b-button variant="success" @click="sendToApi()">Opslaan</b-button>
         </div>
     </b-container>
 </template>
@@ -49,12 +50,20 @@ import Vue from 'vue'
 export default Vue.extend({
     data: function() {
         return {
-            poiAmount: 0
+            poiAmount: 0,
+            saved: false,
         }
     },
     methods: {
         incrementPoiAmount: function() {
             this.poiAmount++;
+        },
+        sendToApi: function() {
+            this.saved = true;
+
+            // TO DO
+            // Code to send form data to api
+            // On succes set this.saved = true;
         }
     }
 })
