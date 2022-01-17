@@ -1,9 +1,11 @@
 <template>
-    <b-container v-if="hasParams">
+    <b-container v-if="hasParams" class="text-center">
         <b-row>
             <b-col>
                 <h1>{{ title }}</h1>
             </b-col>
+        </b-row>
+        <b-row>
             <b-col>
                 <b-button @click="debugDistance += 50">Nep dicherbij lopen</b-button>
                 <b-button @click="debugDistance -= 50">Nep verderweg lopen</b-button>

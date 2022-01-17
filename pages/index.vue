@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-center">
     <h1>Opmerking werking</h1>
     <p>Applicatie werkt op hardcoded data, applicatie zou eigenlijk aan een api moeten hangen</p>
     <p>Gebruiker posities wordt opgehaald doormiddel van de javascript navigator. Dit is niet altijd accuraat en beter alternatief zou er een zijn van google/mapbox/etc.</p>
