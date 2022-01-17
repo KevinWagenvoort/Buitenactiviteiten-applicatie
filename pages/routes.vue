@@ -1,8 +1,8 @@
 <template>
     <div v-if="routes.length > 0" id="routesList">
-        <li v-for="(route, index) in routes" :key="index">
+        <b-container v-for="(route, index) in routes" :key="index">
             <route :key="route.id" :route="route"/>
-        </li>
+        </b-container>
     </div>
 </template>
 
@@ -19,8 +19,9 @@
     beforeMount: function () {
         this.routes = [
             {
-                "id": "A134",
+                "id": "R012",
                 "title": "Vaassen avontuur",
+                "description": "In dit avontuur ga je in Vaassen op avontuur en bezoek je meerdere belangerijke locaties.",
                 "pois": [
                     {
                         "title": "Bezienswaardigheid: De wilde Bes",
@@ -39,8 +40,9 @@
                 ]
             },
             {
-                "id": "A134",
+                "id": "R05",
                 "title": "Apeldoorn avontuur",
+                "description": "In dit avontuur ga je in Apeldoorn op avontuur en bezoek je meerdere belangerijke locaties.",
                 "pois": [
                     {
                         "title": "Bezienswaardigheid: De wilde Bes",
