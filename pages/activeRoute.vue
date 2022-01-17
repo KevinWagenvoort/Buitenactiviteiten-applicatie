@@ -99,6 +99,8 @@
                     enableHighAccuracy: true,
                     maximumAge: 0
                 });
+            } else {
+                this.$router.push('/routes');
             }
         },
         methods: {
