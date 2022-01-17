@@ -1,3 +1,24 @@
 body {
     background: #c5f1f8;
 }
+
+.mapboxStaticMap {
+    width: 75%;
+    margin: auto;
+    display:block;
+}
+
+.poilist > .card {
+    width: 75%;
+    margin: auto;
+    margin-top: 10px;
+    display:block;
+}
+
+.spinner {
+    margin:auto;
+    display: block;
+    margin-top:50%;
+    width: 10rem;
+    height: 10rem;
+}

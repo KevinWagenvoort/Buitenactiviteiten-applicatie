@@ -9,30 +9,39 @@
                 <b-button @click="debugDistance -= 50">Nep verderweg lopen</b-button>
             </b-col>
         </b-row>
-        <b-row>
-            <b-col>
-                <template v-for="(poi, index) in pois">
-                    <div v-if="completedPois.includes(index)" :key="index" class="card completed">
-                        <div class="card-header">{{poi.title}} - Afgevinkt</div>
-                    </div>
-                    <b-card v-else-if="poi.distance <= distanceTrigger" :key="index" :header="poi.title + ' - Afstand: ' + poi.distance" :img-src="poi.image">
-                        <p class="card-text mt-2">{{ poi.description }}</p>
-                        <b-button @click="completePoi(index)">Afvinken</b-button>
-                    </b-card>
-                    <div v-else-if="poi.distance > distanceTrigger" :key="index" class="card outOfReach">
-                        <div class="card-header">{{poi.title}} - Afstand: {{ poi.distance }}</div>
-                    </div>
-                </template>
-            </b-col>
-            <b-col v-if="hasLocation">
-                <StaticMap
-                    :centerLongitude="userLongitude"
-                    :centerLatitude="userLatitude"
-                    :pois="pois"
-                    :completedPois="completedPois"
-                />
-            </b-col>
-        </b-row>
+        <div class="spinner-border spinner" role="status" v-if="!hasLoaded">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div v-else>
+            <b-row>
+                <b-col v-if="hasLocation">
+                    <StaticMap
+                        :centerLongitude="userLongitude"
+                        :centerLatitude="userLatitude"
+                        :pois="pois"
+                        :completedPois="completedPois"
+                        :width="500"
+                        :height="500"
+                    />
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col class="poilist">
+                    <template v-for="(poi, index) in pois">
+                        <div v-if="completedPois.includes(index)" :key="index" class="card completed">
+                            <div class="card-header">{{poi.title}} - Afgevinkt</div>
+                        </div>
+                        <b-card v-else-if="poi.distance <= distanceTrigger" :key="index" :header="poi.title + ' - Afstand: ' + poi.distance" :img-src="poi.image">
+                            <p class="card-text mt-2">{{ poi.description }}</p>
+                            <b-button @click="completePoi(index)">Afvinken</b-button>
+                        </b-card>
+                        <div v-else-if="poi.distance > distanceTrigger" :key="index" class="card outOfReach">
+                            <div class="card-header">{{poi.title}} - Afstand: {{ poi.distance }}</div>
+                        </div>
+                    </template>
+                </b-col>
+            </b-row>
+        </div>
     </b-container>
 </template>
 
@@ -46,6 +55,7 @@
             let completedPois : number[] = [];
 
             return {
+            hasLoaded: false,
             debugDistance: 0,    
             distanceTrigger: 25,
             hasParams: false,
@@ -79,6 +89,8 @@
                     })
 
                     this.pois = pois;
+
+                    this.hasLoaded = true;
                 }, (err) => {
                     console.error(err);
                 }, {

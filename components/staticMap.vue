@@ -1,5 +1,5 @@
 <template>
-    <img width="500" v-bind:src="'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/'+ poisString +'/auto/500x500@2x?access_token=pk.eyJ1Ijoia2V2aWIxMzM3IiwiYSI6ImNqcDg2cGk2ZjBrcnMzdm8wd2Zjc3R6b2oifQ.quWVgUCWuWb_EJgMMQY9eA&attribution=false&logo=false'">
+    <img width="500" class="mapboxStaticMap" v-bind:src="'https://api.mapbox.com/styles/v1/mapbox/outdoors-v11/static/'+ poisString +'/auto/'+width+'x'+height+'@2x?access_token=pk.eyJ1Ijoia2V2aWIxMzM3IiwiYSI6ImNqcDg2cGk2ZjBrcnMzdm8wd2Zjc3R6b2oifQ.quWVgUCWuWb_EJgMMQY9eA&attribution=false&logo=false'">
 </template>
 
 <script lang="ts">
@@ -10,7 +10,9 @@
             centerLongitude: Number,
             centerLatitude: Number,
             pois: Array,
-            completedPois: Array
+            completedPois: Array,
+            width: Number,
+            height: Number
         },
         data: function () {
             return {
